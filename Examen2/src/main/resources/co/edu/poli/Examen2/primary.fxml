@@ -115,6 +115,18 @@
          </RadioButton>
       </HBox>
 
+      <!-- Estrategia de validación -->
+      <Label text="Validación:" GridPane.columnIndex="0" GridPane.rowIndex="5"
+             style="-fx-text-fill: #34495e; -fx-font-weight: bold;">
+         <font><Font size="13.0" /></font>
+      </Label>
+      <ComboBox fx:id="cmbEstrategiaValidacion"
+                promptText="Seleccione una estrategia"
+                prefWidth="300.0"
+                onAction="#handleCambiarEstrategia"
+                style="-fx-background-radius: 6;"
+                GridPane.columnIndex="1" GridPane.rowIndex="5" />
+
    </GridPane>
 
    <Separator />

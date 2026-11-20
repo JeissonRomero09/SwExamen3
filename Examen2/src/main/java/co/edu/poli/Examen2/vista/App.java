@@ -36,7 +36,7 @@ public class App extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/co/edu/poli/Examen2/primary"), 640, 660);
+        scene = new Scene(loadFXML("/co/edu/poli/Examen2/primary"), 640, 700);
         stage.setTitle("Exámenes de Sangre");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -82,7 +82,8 @@ public class App extends Application {
                 new CrearExamenService(repository, new ExamenSangreFactory(), validador),
                 new BuscarExamenService(repository),
                 new EditarExamenService(repository),
-                new EliminarExamenService(repository)));
+                new EliminarExamenService(repository),
+                validador));
         return fxmlLoader.load();
     }
 

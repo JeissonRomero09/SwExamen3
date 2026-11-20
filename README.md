@@ -18,6 +18,8 @@ El proyecto Maven se encuentra en `Examen2/` y está organizado en capas:
 El dominio contiene las reglas de validación de los datos. Los servicios
 coordinan los casos de uso y dependen del puerto de salida, no de MariaDB. La
 configuración de infraestructura se realiza en el punto de entrada JavaFX.
+En la pantalla se puede elegir la estrategia básica o completa antes de crear
+un examen; la opción completa queda seleccionada inicialmente.
 
 ## Requisitos
 

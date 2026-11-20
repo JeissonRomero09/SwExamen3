@@ -8,6 +8,9 @@ import co.edu.poli.Examen2.aplicacion.puerto.salida.RepositorioExamenException;
 import co.edu.poli.Examen2.dominio.Examen;
 import co.edu.poli.Examen2.dominio.FactorRh;
 import co.edu.poli.Examen2.dominio.TipoSangre;
+import co.edu.poli.Examen2.dominio.Strategy.ValidacionBasicaExamen;
+import co.edu.poli.Examen2.dominio.Strategy.ValidacionCompletaExamen;
+import co.edu.poli.Examen2.dominio.Strategy.ValidadorExamen;
 import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,6 +25,7 @@ public class PrimaryController {
 	private final BuscarExamenUseCase buscarExamen;
 	private final EditarExamenUseCase editarExamen;
 	private final EliminarExamenUseCase eliminarExamen;
+	private final ValidadorExamen validador;
 	private String codigoSeleccionado;
 
 	/**
@@ -31,15 +35,18 @@ public class PrimaryController {
 	 * @param buscarExamen casos de uso de búsqueda y listado
 	 * @param editarExamen caso de uso de edición
 	 * @param eliminarExamen caso de uso de eliminación
+	 * @param validador componente que ejecuta la estrategia elegida
 	 */
 	public PrimaryController(CrearExamenUseCase crearExamen,
 			BuscarExamenUseCase buscarExamen,
 			EditarExamenUseCase editarExamen,
-			EliminarExamenUseCase eliminarExamen) {
+			EliminarExamenUseCase eliminarExamen,
+			ValidadorExamen validador) {
 		this.crearExamen = crearExamen;
 		this.buscarExamen = buscarExamen;
 		this.editarExamen = editarExamen;
 		this.eliminarExamen = eliminarExamen;
+		this.validador = validador;
 	}
 
 	@FXML
@@ -50,6 +57,8 @@ public class PrimaryController {
 	private TextField txtCosto;
 	@FXML
 	private ComboBox<String> cmbTipoSangre;
+	@FXML
+	private ComboBox<String> cmbEstrategiaValidacion;
 	@FXML
 	private RadioButton rbPositivo;
 	@FXML
@@ -62,6 +71,22 @@ public class PrimaryController {
 	/** Inicializa el controlador cuando JavaFX carga el FXML. */
 	@FXML
 	public void initialize() {
+		cmbEstrategiaValidacion.getItems().setAll("Básica", "Completa");
+		cmbEstrategiaValidacion.setValue("Completa");
+	}
+
+	/**
+	 * Cambia la estrategia que se aplicará al crear un examen.
+	 */
+	@FXML
+	private void handleCambiarEstrategia() {
+		String seleccion = cmbEstrategiaValidacion.getValue();
+		if ("Básica".equals(seleccion)) {
+			validador.setEstrategia(new ValidacionBasicaExamen());
+		} else if ("Completa".equals(seleccion)) {
+			validador.setEstrategia(new ValidacionCompletaExamen());
+		}
+		mostrarMensaje("Estrategia de validación activa: " + seleccion + ".");
 	}
 
 	/** Guarda un examen usando los valores ingresados en el formulario. */
