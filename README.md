@@ -92,3 +92,10 @@ mvn "-Dexamenes.integration=true" test `
 La prueba de integración genera códigos únicos y elimina los registros que
 crea al finalizar. No se habilita durante `mvn test` normal para que la suite
 unitaria pueda ejecutarse sin base de datos.
+
+## Uso de herramientas de apoyo
+
+- **GitHub Copilot:** se utilizó como apoyo para implementar el código del
+  proyecto.
+- **ChatGPT:** se utilizó para comprender conceptos y recibir recomendaciones
+  relacionadas con el examen.
